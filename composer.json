@@ -1,0 +1,30 @@
+{
+    "name": "hectordev15/datos-peru",
+    "description": "Datos Principales de Ciudadanos Peruanos adscritos en Essalud y Mintra",
+    "type": "library",
+    "keywords": ["EsSalud", "Mintra", "Peru", "PHP", "Consulta", "cURL"],
+    "license": "GPL-3.0-or-later",
+    "minimum-stability": "dev",
+    "optimize-autoloader": true,
+    "authors": [
+        {
+            "name" 		: "Hector Luis Dominguez",
+            "email" 	: "hectorld.15@gmail.com",
+            "role" 		: "Developer"
+        }
+    ],
+    "require": {
+        "ext-curl" : "*",
+        "lib-curl" : "*"
+    },
+    "require-dev": {
+        "php" 	: ">=5.2"
+    },
+    "autoload": {
+		"psr-4": {
+			"MinTra\\" 	: "src/mintra/",
+			"EsSalud\\" : "src/essalud/",
+			"CURL\\" 	: "src/"
+		}
+	}
+}
