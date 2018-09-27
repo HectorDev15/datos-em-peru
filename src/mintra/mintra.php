@@ -1,8 +1,6 @@
 <?php
 namespace MinTra;
 
-use Illuminate\Support\Collection;
-
 class mintra
 {
 	function __construct()
@@ -41,10 +39,10 @@ class mintra
 	{
 		if( strlen($dni)!=8 )
 		{
-			$response = new Collection(array(
+			$response = array(
 				'success' => false,
 				'message' => 'DNI tiene 8 digitos.'
-			));
+			);
 			return $response;
 		}
 		$url = 'http://senep.trabajo.gob.pe:8080/empleoperu/Ajax.do?method=obtenerCiudadanotoXML&POST_NUMDOCUM='.$dni;
@@ -58,32 +56,32 @@ class mintra
 			{
 				$sexo = ( (string)$persona->SEXO == '1' ) ? "Masculino" : "Femenino";
 
-				$response = new Collection();
-				$response->put('success', true);
-				$response->put('source', 'trabajo.gob.pe');
-				$response->put('dni', (string)$persona->DNI);
-				$response->put('verificacion', $this->getCode((string)$persona->DNI));
-				$response->put('paterno', (string)$persona->APELLIDOPAT);
-				$response->put('materno', (string)$persona->APELLIDOMAT);
-				$response->put('nombre', (string)$persona->NOMBRES);
-				$response->put('sexo', (string)$sexo);
-				$response->put('nacimiento', (string)$persona->FECHANAC);
-				$response->put('gvotacion', (string)$persona->POST_GVOTACION);
+				$response = new \StdClass;
+				$response->success = true;
+				$response->source = 'trabajo.gob.pe';
+				$response->dni = (string)$persona->DNI;
+				$response->verificacion = $this->getCode((string)$persona->DNI);
+				$response->paterno = (string)$persona->APELLIDOPAT;
+				$response->materno = (string)$persona->APELLIDOMAT;
+				$response->nombre = (string)$persona->NOMBRES;
+				$response->sexo = (string)$sexo;
+				$response->nacimiento = (string)$persona->FECHANAC;
+				$response->gvotacion = (string)$persona->POST_GVOTACION;
 				return $response;
 			}
 			else
 			{
-				$response = new Collection(array(
+				$response = array(
 					'success' => false,
 					'message' => 'Datos no encontrados.'
-				));
+				);
 				return $response;
 			}
 		}
-		$response = new Collection(array(
+		$response = array(
 			'success' => false,
 			'message' => 'Coneccion fallida.'
-		));
+		);
 		return $response;
 	}
 }

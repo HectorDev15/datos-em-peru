@@ -1,8 +1,6 @@
 <?php
 namespace EsSalud;
 
-use Illuminate\Support\Collection;
-
 class EsSalud
 {
 	function __construct()
@@ -41,10 +39,10 @@ class EsSalud
 	{
 		if( strlen($dni)!=8 )
 		{
-			$response = new new Collection(array(
+			$response = array(
 				'success' => false,
 				'message' => 'DNI tiene 8 digitos.'
-			));
+			);
 			return $response;
 		}
 		
@@ -61,25 +59,24 @@ class EsSalud
 			{
 				$sexo = ( (string)$json->DatosPerson[0]->Sexo == '2' ) ? "Masculino" : "Femenino";
 
-				$response = new Collection((array)$json->DatosPerson[0]);
-				$response->put('success', true);
-				$response->pull('Sexo');
-				$response->put('Sexo', $sexo);
+				$response = (object)$json->DatosPerson[0];
+				$response->Sexo = $sexo;
+				$response->success = true;
 				return $response;
 			}
 			else
 			{
-				$response = new Collection(array(
+				$response = array(
 					'success' => false,
 					'message' => 'Datos no encontrados.'
-				));
+				);
 				return $response;
 			}
 		}
-		$response = new Collection(array(
+		$response = array(
 			'success' => false,
 			'message' => 'Coneccion fallida.'
-		));
+		);
 		return $response;
 	}
 }
